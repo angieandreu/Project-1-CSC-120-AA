@@ -1,7 +1,3 @@
-import jdk.swing.interop.SwingInterOpUtils;
-
-import java.util.Arrays;
-import java.util.Locale;
 import java.util.Scanner;
 
 /**

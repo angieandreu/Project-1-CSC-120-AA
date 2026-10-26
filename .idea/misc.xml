@@ -3,6 +3,7 @@
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/OneDrive/Desktop/CSC120 Project 1 from Angie Andreu/Javadocs" />
     <option name="OPTION_SCOPE" value="private" />
+    <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="true" />
   </component>
   <component name="ProjectRootManager" version="2" default="true" project-jdk-name="openjdk-26" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
