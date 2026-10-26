@@ -46,7 +46,7 @@ public class DentalRecords {
     }//end of main
 
     /**
-     *Ensuring the size of the family is less than maximum and storing validated family size.
+     * Ensuring the size of the family is less than maximum and storing validated family size.
      * @return int with family size
      */
     private static int readFamilySize() {
@@ -62,20 +62,20 @@ public class DentalRecords {
     }//end of readFamilySize
 
     /**
-     *Get input from user to store family names, upper teeth, and lower teeth in arrays.
+     * Get input from user to store family names, upper teeth, and lower teeth in arrays.
      * @param familyNames 1 dimensional array storing family names
      * @param familyTeeth 3 dimensional array storing family names, upper teeth indexes, and lower teeth indexes
      */
-    private static void getFamilyInformation(String [] familyNames, char [][][] familyTeeth){
+    private static void getFamilyInformation(String[] familyNames, char[][][] familyTeeth) {
 
-        for (int index = 0; index < familyNames.length; index++){
+        for (int index = 0; index < familyNames.length; index++) {
             System.out.print("Please enter the name for family member " + (index + 1) + ": ");
             familyNames[index] = keyboard.next();
             keyboard.nextLine();
 
             System.out.print("Please enter the uppers for " + familyNames[index] + ": ");
             String rowOfUpperTeeth = keyboard.nextLine().toUpperCase();
-            while (!validTeethCheck(rowOfUpperTeeth)){
+            while (!validTeethCheck(rowOfUpperTeeth)) {
                 rowOfUpperTeeth = keyboard.nextLine().toUpperCase();
             }//end of while loop
 
@@ -83,7 +83,7 @@ public class DentalRecords {
 
             System.out.print("Please enter the lowers for " + familyNames[index] + ": ");
             String rowOfLowerTeeth = keyboard.nextLine().toUpperCase();
-            while (!validTeethCheck(rowOfLowerTeeth)){
+            while (!validTeethCheck(rowOfLowerTeeth)) {
                 rowOfLowerTeeth = keyboard.nextLine().toUpperCase();
             }//end of while loop
 
@@ -98,21 +98,21 @@ public class DentalRecords {
      * @param rowOfTeethTypes String with teeth types
      * @return
      */
-    private static boolean validTeethCheck(String rowOfTeethTypes){
+    private static boolean validTeethCheck(String rowOfTeethTypes) {
         int toothNumber;
 
         if (rowOfTeethTypes.length() > MAX_TEETH_PER_ROW) {
             System.out.print("Too many teeth, please try again: ");
             return (false);
 
-        }//end of if loop
+        }//end of if statement
 
         for (toothNumber = 0; toothNumber < rowOfTeethTypes.length(); toothNumber++) {
             if (rowOfTeethTypes.charAt(toothNumber) != 'I' && rowOfTeethTypes.charAt(toothNumber) != 'B' && rowOfTeethTypes.charAt(toothNumber) != 'M') {
                 System.out.print("Invalid teeth types, please try again: ");
                 return (false);
 
-            }//end of if loop
+            }//end of if statement
 
         }//end of for loop
 
@@ -125,16 +125,16 @@ public class DentalRecords {
      * @param familyNames 1 dimensional array storing family names
      * @param familyTeeth 3 dimensional array storing family names, upper teeth indexes, and lower teeth indexes
      */
-    private static void extractTooth (String [] familyNames, char [][][] familyTeeth) {
+    private static void extractTooth(String[] familyNames, char[][][] familyTeeth) {
         String nameInput;
         int personIndex;
 
-        System.out.println("Which family member? ");
+        System.out.print("Which family member? ");
 
         nameInput = keyboard.next();
 
-        while(getIndex(familyNames, nameInput) == -1) {
-            System.out.print("Invalid family member, try again: ");
+        while (getIndex(familyNames, nameInput) == -1) {
+            System.out.print("Invalid family member, please try again: ");
             nameInput = keyboard.next();
 
         }//end of while loop
@@ -144,17 +144,17 @@ public class DentalRecords {
         String layerInput = "n";
         int layerIndex;
 
-        System.out.println("Which tooth layer? (U)pper or (L)ower: ");
+        System.out.print("Which tooth layer? (U)pper or (L)ower: ");
         layerInput = keyboard.next().toUpperCase();
         boolean isValid = layerInput.equals("U") || layerInput.equals("L");
-        while (! isValid) {
-            System.out.print("Invalid tooth layer, try again: ");
+        while (!isValid) {
+            System.out.print("Invalid tooth layer, please try again: ");
             layerInput = keyboard.next().toUpperCase();
             isValid = layerInput.equals("U") || layerInput.equals("L");
 
         }//end of while loop
 
-        if (layerInput.toUpperCase().equals("U") ) {
+        if (layerInput.toUpperCase().equals("U")) {
             layerIndex = UPPER_TEETH;
         }//end of if
         else {
@@ -164,24 +164,25 @@ public class DentalRecords {
         int toothInput;
         boolean isToothAlreadyMissing;
 
-        System.out.println("Which tooth number? ");
+        System.out.print("Which tooth number? ");
 
         do {
             toothInput = keyboard.nextInt();
             toothInput--;
-            if (toothInput >= 0 && toothInput < familyTeeth[personIndex][layerIndex].length){
-                 isToothAlreadyMissing = familyTeeth[personIndex][layerIndex][toothInput] == 'M';
+            if (toothInput >= 0 && toothInput < familyTeeth[personIndex][layerIndex].length) {
+                isToothAlreadyMissing = familyTeeth[personIndex][layerIndex][toothInput] == 'M';
 
-                if (isToothAlreadyMissing){
-                    System.out.println("Missing tooth, try again:");
+                if (isToothAlreadyMissing) {
+                    System.out.print("Missing tooth, please try again:");
                     toothInput = -1;
-                }
-            }else{
-                System.out.println("Invalid tooth number, try again: ");
-            }
+                }//end of second if statement
+            }//end of first if statement
+            else {
+                System.out.print("Invalid tooth number, please try again: ");
+            }//end of else
 
-        }while (  ( toothInput < 0 || toothInput >= familyTeeth[personIndex][layerIndex].length));   //end of while loop
-
+        }//end of do
+        while ((toothInput < 0 || toothInput >= familyTeeth[personIndex][layerIndex].length));
         familyTeeth[personIndex][layerIndex][toothInput] = 'M';
 
     }//end of extractTooth
@@ -189,10 +190,10 @@ public class DentalRecords {
     /**
      * Ensuring the user input of family name exists in familyNames array.
      * @param familyNames 1 dimensional array storing family names
-     * @param name String containing individual input name
+     * @param name        String containing individual input name
      * @return
      */
-    private static int getIndex (String [] familyNames, String name) {
+    private static int getIndex(String[] familyNames, String name) {
         for (int nameIndex = 0; nameIndex < familyNames.length; nameIndex++) {
             if (name.toUpperCase().equals(familyNames[nameIndex].toUpperCase())) {
                 return nameIndex;
@@ -207,14 +208,14 @@ public class DentalRecords {
      * @param familyNames 1 dimensional array storing family names
      * @param familyTeeth 3 dimensional array storing family names, upper teeth indexes, and lower teeth indexes
      */
-    private static void rootCanalIndices(String [] familyNames, char [][][] familyTeeth) {
-        int[] teethCount = countingTeeth( familyNames, familyTeeth);
+    private static void rootCanalIndices(String[] familyNames, char[][][] familyTeeth) {
+        int[] teethCount = countingTeeth(familyNames, familyTeeth);
         double bCount = (double) teethCount[0];
         double iCount = (double) teethCount[1];
         double mCount = -(double) teethCount[2];
 
-        System.out.printf("One root canal at: %.2f %n",(-bCount + Math.sqrt(bCount* bCount - 4*iCount*mCount))/(2*iCount));
-        System.out.printf("Another root canal at: %.2f %n",(-bCount - Math.sqrt(bCount* bCount - 4*iCount*mCount))/(2*iCount));
+        System.out.printf("One root canal at: %.2f %n", (-bCount + Math.sqrt(bCount * bCount - 4 * iCount * mCount)) / (2 * iCount));
+        System.out.printf("Another root canal at: %.2f %n", (-bCount - Math.sqrt(bCount * bCount - 4 * iCount * mCount)) / (2 * iCount));
 
     }//end of rootCanalIndices
 
@@ -224,25 +225,26 @@ public class DentalRecords {
      * @param familyTeeth 3 dimensional array storing family names, upper teeth indexes, and lower teeth indexes
      * @return int with number of teeth
      */
-    private static int[] countingTeeth(String [] familyNames, char [][][] familyTeeth){
+    private static int[] countingTeeth(String[] familyNames, char[][][] familyTeeth) {
 
         int bCount = 0;
         int iCount = 0;
         int mCount = 0;
 
-        for (int personIndex = 0; personIndex < familyNames.length ; personIndex++) {
+        for (int personIndex = 0; personIndex < familyNames.length; personIndex++) {
             for (int rowIndex = 0; rowIndex < familyTeeth[personIndex].length; rowIndex++) {
                 for (int columnIndex = 0; columnIndex < familyTeeth[personIndex][rowIndex].length; columnIndex++) {
-                    if ( familyTeeth[personIndex][rowIndex][columnIndex] == 'B')  {
+                    if (familyTeeth[personIndex][rowIndex][columnIndex] == 'B') {
                         bCount++;
 
                     }// end of if statement
-                    else if ( familyTeeth[personIndex][rowIndex][columnIndex] == 'I') {
+                    else if (familyTeeth[personIndex][rowIndex][columnIndex] == 'I') {
                         iCount++;
 
-                    } else {
+                    }//end of else-if
+                    else {
                         mCount++;
-                    }  //end of if-else
+                    }//end of else
 
                 }//end of third for loop
 
@@ -262,15 +264,15 @@ public class DentalRecords {
      * @param familyNames 1 dimensional array storing family names
      * @param familyTeeth 3 dimensional array storing family names, upper teeth indexes, and lower teeth indexes
      */
-    private static void printFamilyTeeth(String [] familyNames, char [][][] familyTeeth) {
-        for (int personIndex = 0; personIndex < familyNames.length ; personIndex++) {
+    private static void printFamilyTeeth(String[] familyNames, char[][][] familyTeeth) {
+        for (int personIndex = 0; personIndex < familyNames.length; personIndex++) {
             System.out.println(familyNames[personIndex]);
             for (int rowIndex = 0; rowIndex < familyTeeth[personIndex].length; rowIndex++) {
                 if (rowIndex == UPPER_TEETH)
-                System.out.print("Upper: " );
+                    System.out.print("  Uppers: ");
                 else {
-                    System.out.print("Lower: ");
-                }
+                    System.out.print("  Lowers: ");
+                }// end of if else
                 for (int columnIndex = 0; columnIndex < familyTeeth[personIndex][rowIndex].length; columnIndex++) {
                     System.out.print((columnIndex + 1) + ":" + familyTeeth[personIndex][rowIndex][columnIndex] + " ");
 
@@ -288,11 +290,11 @@ public class DentalRecords {
      * @param familyNames 1 dimensional array storing family names
      * @param familyTeeth 3 dimensional array storing family names, upper teeth indexes, and lower teeth indexes
      */
-    private static void menuLoop (String [] familyNames, char [][][] familyTeeth){
+    private static void menuLoop(String[] familyNames, char[][][] familyTeeth) {
         System.out.print("(P)rint, (E)xtract, (R)oot, e(X)it: ");
         String menuChoice = keyboard.next();
 
-        while(!menuChoice.toUpperCase().equals("X")) {
+        while (!menuChoice.toUpperCase().equals("X")) {
             switch (menuChoice.toUpperCase()) {
                 case "P":
                     printFamilyTeeth(familyNames, familyTeeth);
@@ -307,10 +309,10 @@ public class DentalRecords {
                     System.out.print("P)rint, (E)xtract, (R)oot, e(X)it: ");
                     break;
                 default:
-                    System.out.println("Invalid menu option, try again: ");
-            }
+                    System.out.print("Invalid menu option, please try again: ");
+            }//end of switch
             menuChoice = keyboard.next();
-        }
+        }//end of while loop
         System.out.print("Exiting the Floridian Tooth Records :-)");
 
     }//end of menuLoop
